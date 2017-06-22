@@ -1,0 +1,37 @@
+﻿{{message}}
+
+<div class="col-md-12">
+    <ng-container *ngFor="let u of userService.Users">
+        <div *ngIf="!u.Disabled" class="col-md-12 col-sm-12 interactiveDiv row">
+            <span class="nameList col-md-8 col-sm-12">{{u.FirstName}} {{u.LastName}}: {{u.Email}}</span>
+            <span class="alignRight col-md-3 col-sm-12">
+                <button routerLink="/users/{{u.Id}}"><i class="fa fa-pencil-square"></i> Edit  </button>
+                <button (click)="DisableUser(u)"><i class="fa fa-user-times"></i> Disable  </button>
+            </span>
+        </div>
+    </ng-container>
+</div>
+
+<br />
+<div class="col-md-12">
+    <ng-container *ngFor="let u of userService.Users">
+        <div *ngIf="u.Disabled" class="col-md-12 col-sm-12 interactiveDiv row">
+            <span class="nameList col-md-8 col-sm-12">{{u.FirstName}} {{u.LastName}}: {{u.Email}}</span>
+            <span class="alignRight col-md-3 col-sm-12">
+                <button routerLink="/users/{{u.Id}}"><i class="fa fa-pencil-square"></i> Edit  </button>
+                <button (click)="EnableUser(u)"><i class="fa fa-user-times"></i> Enable  </button>
+            </span>
+        </div>
+    </ng-container>
+</div>
+
+<button (click)="DisplayNewUser = !DisplayNewUser" class="btn btn-success"><i class="fa fa-plus"></i> Add user</button>
+<div *ngIf="DisplayNewUser">
+
+    <label>Email: </label><input [(ngModel)]="newUser.Email" class="form-control" />
+    <label>Password: </label><input [(ngModel)]="newUser.Password" class="form-control" type="password" />
+    <label>Confirm Password: </label><input [(ngModel)]="newUser.ConfirmPassword" class="form-control" type="password" />
+    <label>First Name: </label><input [(ngModel)]="newUser.FirstName" class="form-control" />
+    <label>Last Name: </label><input [(ngModel)]="newUser.LastName" class="form-control" />
+    <button type="button" class="btn btn-success" (click)="CreateUser(newUser)"><i class="fa fa-plus"></i> Create</button>
+</div>

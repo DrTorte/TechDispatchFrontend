@@ -1,0 +1,8 @@
+﻿<span *ngIf="!user">Loaading...</span>
+<span *ngIf="user">
+    <label>First Name:</label><input type="text" [(ngModel)]="user.FirstName"  class="form-control" />
+    <label>Last Name:</label><input type="text" [(ngModel)]="user.LastName"  class="form-control" />
+    <label>Password:</label><input type="password" [(ngModel)]="user.Password" class="form-control" />
+    <label>Repeat Password:</label><input type="password" [(ngModel)]="user.PasswordRepeat" placeholder="Repeat password..." class="form-control" />
+    <button (click)="saveChanges()" class="btn btn-success">Save</button>
+</span>

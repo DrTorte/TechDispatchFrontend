@@ -1,0 +1,11 @@
+﻿{{userService.myUser.FirstName}} {{userService.myUser.LastName}}'s profile.
+
+<div>
+    <p>Name: {{user.LastName}}, {{user.FirstName}}</p>
+    <p>Email: {{user.Email}}</p>
+    <label>New Password: </label> 
+    <input [(ngModel)]="user.Password" type="password" class="form-control"/>
+    <label>Repeat Password: </label>
+    <input [(ngModel)]="user.ConfirmPassword" type="password" class="form-control" />
+    <button (click)="saveChanges()" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+</div>

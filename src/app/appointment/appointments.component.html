@@ -1,0 +1,8 @@
+<ng-container *ngIf='loading'>
+<loading></loading>
+</ng-container>
+<div class="row">
+    <div *ngFor="let a of appointmentService.appointmentsList" class="col-md-{{mdWidth}}">
+        <a routerLink='/appointments/{{a.AppointmentID}}'>{{a.CustomerName}} - {{a.Date | date}} {{a.TimeSlotName}}</a>
+    </div>
+</div>

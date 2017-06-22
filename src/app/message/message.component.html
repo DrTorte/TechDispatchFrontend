@@ -1,0 +1,4 @@
+﻿<div *ngFor="let m of messageService.Messages" class="alert alert-danger">
+    <a class="close" (click)="removeMessage(m)" aria-label="close">&times;</a>
+    {{m.Title}}: {{m.Details}}
+</div>

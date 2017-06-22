@@ -1,0 +1,23 @@
+<div class="row">
+<loading *ngIf="loading"></loading>
+<ng-container *ngIf="!loading">
+    <div class="col-sm-12 col-md-4">
+        {{app.AppointmentType}} at 
+            <a href="https://www.google.com/maps/search/?api=1&query={{querifyAddress()}}">{{app.CustomerAddress}}</a>
+         on <b>{{app.Date | date}}, {{app.TimeSlotName}}</b><br>
+        {{app.CustomerName}}: {{app.CustomerPhone}}
+    </div>
+    <div class="col-sm-12 col-md-4">
+        Tower: {{app.TowerName}}, {{app.ZoneName}}
+        IP: {{app.IP}}
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <ng-container *ngFor="let c of app.Comments">
+            <ng-container *ngIf="c.Value">
+                {{c.Value}}<br>
+                - {{c.Creator}}, {{c.CreationDate | date}}
+            </ng-container>
+        </ng-container>
+    </div>
+</ng-container>
+</div>
