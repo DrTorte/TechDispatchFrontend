@@ -12,8 +12,11 @@ import { AuthGuardService } from './auth/auth-guard.service';
 import { AppComponent }   from './app.component';
 
 import { AppointmentService } from './appointment/appointment.service';
+import { AppointmentCreateComponent } from './appointment/appointment-create.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentsComponent } from './appointment/appointments.component';
+
+import { FieldTechService } from './field-tech/field-tech.service';
 
 import { ProcessorService } from './processor.service';
 
@@ -36,9 +39,9 @@ import { PageNotFoundComponent} from './not-found.component';
 @NgModule({
   imports:      [ BrowserModule, HttpModule, AppRoutingModule, FormsModule ],
   declarations: [ AppComponent, AppointmentsComponent,AppointmentComponent, DashboardComponent, NavComponent, PageNotFoundComponent,
-  AccountComponent,LoginComponent,UserComponent,UsersComponent,
+  AccountComponent,LoginComponent,UserComponent,UsersComponent, AppointmentCreateComponent,
   MessageComponent, LoadingComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [ProcessorService, AppointmentService, MessageService, UserService, AuthService, AuthGuardService]
+  providers: [ProcessorService, AppointmentService, MessageService, UserService, AuthService, AuthGuardService, FieldTechService]
 })
 export class AppModule { }

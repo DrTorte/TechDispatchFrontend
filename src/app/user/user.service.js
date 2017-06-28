@@ -17,11 +17,13 @@ require("rxjs/add/operator/map");
 var user_1 = require("./user");
 var processor_service_1 = require("../processor.service");
 var message_service_1 = require("../message/message.service");
+var field_tech_service_1 = require("../field-tech/field-tech.service");
 var UserService = (function () {
-    function UserService(http, processorService, messaegService) {
+    function UserService(http, processorService, messageService, fieldTechService) {
         this.http = http;
         this.processorService = processorService;
-        this.messaegService = messaegService;
+        this.messageService = messageService;
+        this.fieldTechService = fieldTechService;
         this.accountUrl = '/api/Account/';
         this.usersUrl = '/api/User';
         this.loginUrl = '/api/token';
@@ -30,7 +32,11 @@ var UserService = (function () {
         this.UserRoles = [];
     }
     UserService.prototype.setLogin = function (user) {
+        var _this = this;
         this.myUser = user;
+        //go get some metadata as well.
+        this.fieldTechService.getTechs()
+            .subscribe(function (x) { _this.fieldTechService.fieldTechs = x; });
     };
     UserService.prototype.extractData = function (res) {
         var body = res.json();
@@ -38,37 +44,37 @@ var UserService = (function () {
     };
     // get users.
     UserService.prototype.getUsers = function () {
-        return this.http.get(this.usersUrl, { headers: this.processorService.getHeaders() })
+        return this.http.get(this.processorService.baseUrl + this.usersUrl, { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.getUser = function (id) {
-        return this.http.get(this.usersUrl + '/' + id, { headers: this.processorService.getHeaders() })
+        return this.http.get(this.processorService.baseUrl + this.usersUrl + '/' + id, { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.updateUser = function (user) {
-        return this.http.post(this.usersUrl + "/update", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/update", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.getUserRoles = function () {
-        return this.http.get(this.usersUrl + "/roles", { headers: this.processorService.getHeaders() })
+        return this.http.get(this.processorService.baseUrl + this.usersUrl + "/roles", { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.createUser = function (user) {
-        return this.http.post(this.usersUrl, this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl, this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.disableUser = function (user) {
-        return this.http.post(this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.enableUser = function (user) {
-        return this.http.post(this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
@@ -114,7 +120,7 @@ var UserService = (function () {
 UserService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http,
-        processor_service_1.ProcessorService, message_service_1.MessageService])
+        processor_service_1.ProcessorService, message_service_1.MessageService, field_tech_service_1.FieldTechService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

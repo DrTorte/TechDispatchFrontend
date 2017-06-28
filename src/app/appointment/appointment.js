@@ -18,4 +18,12 @@ var AppointmentDetail = (function (_super) {
     return AppointmentDetail;
 }(AppointmentList));
 exports.AppointmentDetail = AppointmentDetail;
+var AppointmentCreate = (function (_super) {
+    __extends(AppointmentCreate, _super);
+    function AppointmentCreate() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return AppointmentCreate;
+}(AppointmentList));
+exports.AppointmentCreate = AppointmentCreate;
 //# sourceMappingURL=appointment.js.map

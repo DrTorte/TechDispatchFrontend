@@ -66,7 +66,14 @@ export class AuthService {
         if (this.checkAuthCookie() != "") {
             return this.http.get(this.processorService.baseUrl + this.url, { headers: this.processorService.getHeaders() })
                 .map(result => { this.userService.setLogin(result.json()); })
-                .catch(res => {this.LogOut(); return Observable.throw(res.json());})
+                .catch(res => {
+                    if (res.status == "0"){
+                        window.location.replace("/404.html");
+                    } else {
+                        this.LogOut(); 
+                        return Observable.throw(res.json());
+                    }
+                })
         } else {
             this.redirectUrl = targetUrl;
             this.router.navigate(['/login']);

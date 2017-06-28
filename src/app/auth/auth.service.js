@@ -61,7 +61,15 @@ var AuthService = (function () {
         if (this.checkAuthCookie() != "") {
             return this.http.get(this.processorService.baseUrl + this.url, { headers: this.processorService.getHeaders() })
                 .map(function (result) { _this.userService.setLogin(result.json()); })
-                .catch(function (res) { _this.LogOut(); return Observable_1.Observable.throw(res.json()); });
+                .catch(function (res) {
+                if (res.status == "0") {
+                    window.location.replace("/404.html");
+                }
+                else {
+                    _this.LogOut();
+                    return Observable_1.Observable.throw(res.json());
+                }
+            });
         }
         else {
             this.redirectUrl = targetUrl;

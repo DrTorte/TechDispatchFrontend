@@ -10,12 +10,14 @@ var router_1 = require("@angular/router");
 var auth_guard_service_1 = require("./auth/auth-guard.service");
 var appointments_component_1 = require("./appointment/appointments.component");
 var appointment_component_1 = require("./appointment/appointment.component");
+var appointment_create_component_1 = require("./appointment/appointment-create.component");
 var login_component_1 = require("./user/login.component");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var not_found_component_1 = require("./not-found.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'appointments', component: appointments_component_1.AppointmentsComponent, canActivate: [auth_guard_service_1.AuthGuardService] },
+    { path: 'appointments/new', component: appointment_create_component_1.AppointmentCreateComponent, canActivate: [auth_guard_service_1.AuthGuardService] },
     { path: 'appointments/:id', component: appointment_component_1.AppointmentComponent, canActivate: [auth_guard_service_1.AuthGuardService] },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_service_1.AuthGuardService] },
     { path: '', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_service_1.AuthGuardService] },

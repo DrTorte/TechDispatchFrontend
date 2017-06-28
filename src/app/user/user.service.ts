@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import { User, UserUpdate, UserRoles } from './user';
 import { ProcessorService } from '../processor.service';
 import { MessageService } from '../message/message.service';
+import { FieldTechService } from '../field-tech/field-tech.service';
 
 import { Login } from './login';
 
@@ -25,11 +26,14 @@ export class UserService {
     public UserRoles: UserRoles[] = [];
 
     constructor(private http: Http,
-        private processorService: ProcessorService, private messaegService: MessageService) {
+        private processorService: ProcessorService, private messageService: MessageService, private fieldTechService : FieldTechService) {
     }
 
     setLogin(user: User): void {
         this.myUser = user;
+        //go get some metadata as well.
+        this.fieldTechService.getTechs()
+            .subscribe(x=>{this.fieldTechService.fieldTechs = x});
     }
 
     private extractData(res: Response) {
@@ -39,43 +43,43 @@ export class UserService {
 
     // get users.
     getUsers(): Observable<User[]> {
-        return this.http.get(this.usersUrl, { headers: this.processorService.getHeaders() })
+        return this.http.get(this.processorService.baseUrl + this.usersUrl, { headers: this.processorService.getHeaders() })
             .map(res => res.json() as User[])
             .catch(this.handleError);
     }
 
     getUser(id: string): Observable<User> {
-        return this.http.get(this.usersUrl + '/' + id, { headers: this.processorService.getHeaders() })
+        return this.http.get(this.processorService.baseUrl + this.usersUrl + '/' + id, { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     updateUser(user: UserUpdate): Observable<User> {
-        return this.http.post(this.usersUrl + "/update", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/update", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     getUserRoles(): Observable<UserRoles[]>{
-        return this.http.get(this.usersUrl + "/roles", { headers: this.processorService.getHeaders() })
+        return this.http.get(this.processorService.baseUrl + this.usersUrl + "/roles", { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     createUser(user:User): Observable<User> {
-        return this.http.post(this.usersUrl, this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl, this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     disableUser(user: User): Observable<User> {
-        return this.http.post(this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     enableUser(user: User): Observable<User> {
-        return this.http.post(this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }

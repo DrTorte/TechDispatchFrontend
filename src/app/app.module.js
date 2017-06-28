@@ -14,8 +14,10 @@ var auth_service_1 = require("./auth/auth.service");
 var auth_guard_service_1 = require("./auth/auth-guard.service");
 var app_component_1 = require("./app.component");
 var appointment_service_1 = require("./appointment/appointment.service");
+var appointment_create_component_1 = require("./appointment/appointment-create.component");
 var appointment_component_1 = require("./appointment/appointment.component");
 var appointments_component_1 = require("./appointment/appointments.component");
+var field_tech_service_1 = require("./field-tech/field-tech.service");
 var processor_service_1 = require("./processor.service");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var nav_component_1 = require("./nav/nav.component");
@@ -37,10 +39,10 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, appointments_component_1.AppointmentsComponent, appointment_component_1.AppointmentComponent, dashboard_component_1.DashboardComponent, nav_component_1.NavComponent, not_found_component_1.PageNotFoundComponent,
-            account_component_1.AccountComponent, login_component_1.LoginComponent, user_component_1.UserComponent, users_component_1.UsersComponent,
+            account_component_1.AccountComponent, login_component_1.LoginComponent, user_component_1.UserComponent, users_component_1.UsersComponent, appointment_create_component_1.AppointmentCreateComponent,
             message_component_1.MessageComponent, loading_component_1.LoadingComponent],
         bootstrap: [app_component_1.AppComponent],
-        providers: [processor_service_1.ProcessorService, appointment_service_1.AppointmentService, message_service_1.MessageService, user_service_1.UserService, auth_service_1.AuthService, auth_guard_service_1.AuthGuardService]
+        providers: [processor_service_1.ProcessorService, appointment_service_1.AppointmentService, message_service_1.MessageService, user_service_1.UserService, auth_service_1.AuthService, auth_guard_service_1.AuthGuardService, field_tech_service_1.FieldTechService]
     })
 ], AppModule);
 exports.AppModule = AppModule;

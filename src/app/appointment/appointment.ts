@@ -27,3 +27,10 @@ export class AppointmentDetail extends AppointmentList {
 
     Comments: AppointmentComment[];
 }
+
+export class AppointmentCreate extends AppointmentList {
+    TowerID: number;
+    Comments: AppointmentComment[];
+
+    IPID?: number;
+}
