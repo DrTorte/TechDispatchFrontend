@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var appointment_1 = require("./appointment");
 var appointment_service_1 = require("./appointment.service");
+var customer_1 = require("../customer/customer");
 var AppointmentCreateComponent = (function () {
     function AppointmentCreateComponent(appointmentService) {
         this.appointmentService = appointmentService;
         this.appointment = new appointment_1.AppointmentCreate();
+        this.customer = new customer_1.CustomerCreate();
     }
     return AppointmentCreateComponent;
 }());
