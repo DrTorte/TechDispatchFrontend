@@ -19,6 +19,7 @@ var AppointmentService = (function () {
         this.processorService = processorService;
         this.url = '/api/Appointments';
         this.appointmentsList = [];
+        this.appointmentsSubReasonsList = [];
     }
     AppointmentService.prototype.getAppointments = function (CustomerId, TowerId, ZoneId, FromDate, ToDate, Count, Skip) {
         return this.http.get(this.processorService.baseUrl + this.url + "?CustomerId=" + CustomerId +
@@ -33,6 +34,12 @@ var AppointmentService = (function () {
     };
     AppointmentService.prototype.getAppointment = function (Id) {
         return this.http.get(this.processorService.baseUrl + this.url + "/" + Id, { headers: this.processorService.getHeaders() })
+            .map(function (res) { return res.json(); })
+            .catch(this.processorService.handleError);
+    };
+    AppointmentService.prototype.getAppointmentSubReasons = function (onlyActive) {
+        if (onlyActive === void 0) { onlyActive = false; }
+        return this.http.get(this.processorService.baseUrl + this.url + "/Reasons", { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.processorService.handleError);
     };

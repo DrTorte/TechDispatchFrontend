@@ -16,13 +16,20 @@ import { AppointmentCreateComponent } from './appointment/appointment-create.com
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentsComponent } from './appointment/appointments.component';
 
+import { CustomerService } from './customer/customer.service';
+import { CustomerCreateComponent } from './customer/customer-create.component';
+import { CustomerSelectComponent } from './customer/customer-select.component';
+
 import { FieldTechService } from './field-tech/field-tech.service';
+
+import { TowerService } from './tower/tower.service';
 
 import { ProcessorService } from './processor.service';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavComponent } from './nav/nav.component';
 
+import { MessageDebugComponent } from './message/message-debug.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService} from './message/message.service';
 import { LoadingComponent } from './loading.component';
@@ -39,9 +46,10 @@ import { PageNotFoundComponent} from './not-found.component';
 @NgModule({
   imports:      [ BrowserModule, HttpModule, AppRoutingModule, FormsModule ],
   declarations: [ AppComponent, AppointmentsComponent,AppointmentComponent, DashboardComponent, NavComponent, PageNotFoundComponent,
-  AccountComponent,LoginComponent,UserComponent,UsersComponent, AppointmentCreateComponent,
-  MessageComponent, LoadingComponent ],
+  AccountComponent,LoginComponent,UserComponent,UsersComponent, AppointmentCreateComponent, CustomerCreateComponent, CustomerSelectComponent,
+  MessageComponent, LoadingComponent, MessageDebugComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [ProcessorService, AppointmentService, MessageService, UserService, AuthService, AuthGuardService, FieldTechService]
+  providers: [ProcessorService, AppointmentService, MessageService, UserService, AuthService, AuthGuardService, FieldTechService, TowerService
+  , CustomerService]
 })
 export class AppModule { }

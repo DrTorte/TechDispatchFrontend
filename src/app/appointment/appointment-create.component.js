@@ -16,14 +16,33 @@ var AppointmentCreateComponent = (function () {
     function AppointmentCreateComponent(appointmentService) {
         this.appointmentService = appointmentService;
         this.appointment = new appointment_1.AppointmentCreate();
-        this.customer = new customer_1.CustomerCreate();
+        this.appointmentReasons = [];
+        this.newCustomer = new customer_1.CustomerCreate();
+        this.selectedCustomer = new customer_1.Customer();
+        this.appointment.AppointmentType = ""; //set this so we get a default value in the select dropdown.
     }
+    AppointmentCreateComponent.prototype.updateAppointmentTypes = function () {
+        switch (this.appointment.AppointmentType) {
+            case "0":
+                this.appointmentReasons = this.appointmentService.appointmentsSubReasonsList.filter(function (x) { return x.Install; });
+                break;
+            case "1":
+                this.appointmentReasons = this.appointmentService.appointmentsSubReasonsList.filter(function (x) { return x.Repair; });
+                break;
+            case "2":
+                this.appointmentReasons = this.appointmentService.appointmentsSubReasonsList.filter(function (x) { return x.Misc; });
+                break;
+            default:
+                this.appointmentReasons = [];
+                break;
+        }
+    };
     return AppointmentCreateComponent;
 }());
 AppointmentCreateComponent = __decorate([
     core_1.Component({
         selector: 'createAppointment',
-        templateUrl: './appointment-create.html'
+        templateUrl: './appointment-create.component.html'
     }),
     __metadata("design:paramtypes", [appointment_service_1.AppointmentService])
 ], AppointmentCreateComponent);

@@ -1,0 +1,30 @@
+<div class='row col-md-12'>
+    <label class="col-md-2 col-form-label">Name:</label>
+    <div class="col-md-4">
+        <input class="form-control" [(ngModel)]="newCustomer.Name"/>
+    </div>
+    <label class="col-md-2 col-form-label">Address:</label>
+    <div class="col-md-4">
+        <input class="form-control" [(ngModel)]="newCustomer.Address"/>
+    </div>
+    <label class="col-md-2 col-form-label">Phone Number:</label>
+    <div class="col-md-4">
+        <input class="form-control" [(ngModel)]="newCustomer.PhoneNumber" />
+    </div>
+    <label class="col-md-2 col-form-label">Tower:</label>
+    <div class="col-md-4">
+        <select class="form-control" [(ngModel)]="newCustomer.TowerId">
+            <option value="-1" selected>-- select --</option>
+            <ng-container *ngFor="let z of towerService.zones">
+                <option disabled>
+                    {{z.Name}}
+                </option>
+                <ng-container *ngFor="let t of towerService.towers as Tower">
+                    <option *ngIf="t?.InstallZoneId == z?.InstallZoneId">
+                        {{t?.TowerName}}
+                    </option>
+                </ng-container>
+            </ng-container>
+        </select>
+    </div>
+</div>

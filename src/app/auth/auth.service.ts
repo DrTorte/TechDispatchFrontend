@@ -32,13 +32,16 @@ export class AuthService {
     redirectUrl: string;
 
     checkAuthCookie(): string {
+        this.messageService.addMessage("Checking for cookie","Login",true);
         let cookies = document.cookie.split(";");
         for (let c of cookies) {
             let keyVal = c.split("=");
             if (keyVal[0] == "Authorization") {
+                this.messageService.addMessage("Cookie found", "Login",true);
                 return keyVal[1];
             }
         }
+        this.messageService.addMessage("No cookie.", "Login",true);
         return "";
     }
 
@@ -64,17 +67,24 @@ export class AuthService {
 
         //check for auth cookie's existance.
         if (this.checkAuthCookie() != "") {
+            this.messageService.addMessage("Checking server response for cookie", "Login",true);
             return this.http.get(this.processorService.baseUrl + this.url, { headers: this.processorService.getHeaders() })
-                .map(result => { this.userService.setLogin(result.json()); })
+                .map(result => 
+                { 
+                    this.messageService.addMessage("Logged in successfully!", "Login",true);
+                    this.userService.setLogin(result.json()); 
+                })
                 .catch(res => {
                     if (res.status == "0"){
                         window.location.replace("/404.html");
                     } else {
+                        this.messageService.addMessage("Cookie invalid.", "Login",true);
                         this.LogOut(); 
                         return Observable.throw(res.json());
                     }
                 })
         } else {
+            this.messageService.addMessage("No login cookie, redirecting.", "Login",true);
             this.redirectUrl = targetUrl;
             this.router.navigate(['/login']);
             return Observable.throw(() => "No user");

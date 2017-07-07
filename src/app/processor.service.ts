@@ -39,7 +39,6 @@ export class ProcessorService {
         let headers: Headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         // split the cookies.
         let cookies = document.cookie.split(';');
-        // remove any previous mention of the Authorization headers.
 
         // get authorization header.
         for (let c of cookies) {
@@ -49,7 +48,6 @@ export class ProcessorService {
             }
         }
 
-        console.dir(headers);
         return headers;
     }
 

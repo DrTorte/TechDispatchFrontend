@@ -45,7 +45,6 @@ var ProcessorService = (function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         // split the cookies.
         var cookies = document.cookie.split(';');
-        // remove any previous mention of the Authorization headers.
         // get authorization header.
         for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
             var c = cookies_1[_i];
@@ -54,7 +53,6 @@ var ProcessorService = (function () {
                 headers.append(keyVal[0], keyVal[1]);
             }
         }
-        console.dir(headers);
         return headers;
     };
     ProcessorService.prototype.handleError = function (error) {

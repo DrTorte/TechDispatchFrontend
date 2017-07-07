@@ -10,25 +10,44 @@ var message_1 = require("./message");
 var MessageService = (function () {
     function MessageService() {
         this.Messages = [];
+        this.Debug = [];
         this.LastId = 0;
+        this.LastDebugId = 0;
     }
-    MessageService.prototype.addMessage = function (details, title) {
+    MessageService.prototype.addMessage = function (details, title, debug) {
         if (title === void 0) { title = "Error"; }
-        this.LastId++;
+        if (debug === void 0) { debug = false; }
         var msg = new message_1.Message();
         msg.Details = details;
         msg.Title = title;
-        msg.Id = this.LastId;
-        this.Messages.push(msg);
+        if (!debug) {
+            this.LastId++;
+            msg.Id = this.LastId;
+            this.Messages.push(msg);
+        }
+        else {
+            this.LastDebugId++;
+            msg.Id = this.LastDebugId;
+            this.Debug.push(msg);
+        }
     };
-    MessageService.prototype.clearMessage = function (message) {
-        var index = this.Messages.findIndex(function (x) { return message.Id == x.Id; });
-        this.Messages.splice(index, 1);
+    MessageService.prototype.clearMessage = function (message, debug) {
+        if (debug === void 0) { debug = false; }
+        if (!debug) {
+            var index = this.Messages.findIndex(function (x) { return message.Id == x.Id; });
+            this.Messages.splice(index, 1);
+        }
+        else {
+            var index = this.Debug.findIndex(function (x) { return message.Id == x.Id; });
+            this.Debug.splice(index, 1);
+        }
     };
     //clear all messages.
     MessageService.prototype.clearMessages = function () {
         this.Messages = [];
+        this.Debug = [];
         this.LastId = 0;
+        this.LastDebugId = 0;
     };
     MessageService.prototype.paramTest = function (data) {
         var params = Object.keys(data).map(function (key) {

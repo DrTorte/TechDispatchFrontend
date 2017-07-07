@@ -30,14 +30,17 @@ var AuthService = (function () {
         this.loginUrl = "/api/login";
     }
     AuthService.prototype.checkAuthCookie = function () {
+        this.messageService.addMessage("Checking for cookie", "Login", true);
         var cookies = document.cookie.split(";");
         for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
             var c = cookies_1[_i];
             var keyVal = c.split("=");
             if (keyVal[0] == "Authorization") {
+                this.messageService.addMessage("Cookie found", "Login", true);
                 return keyVal[1];
             }
         }
+        this.messageService.addMessage("No cookie.", "Login", true);
         return "";
     };
     AuthService.prototype.login = function (username, password) {
@@ -59,19 +62,25 @@ var AuthService = (function () {
         }
         //check for auth cookie's existance.
         if (this.checkAuthCookie() != "") {
+            this.messageService.addMessage("Checking server response for cookie", "Login", true);
             return this.http.get(this.processorService.baseUrl + this.url, { headers: this.processorService.getHeaders() })
-                .map(function (result) { _this.userService.setLogin(result.json()); })
+                .map(function (result) {
+                _this.messageService.addMessage("Logged in successfully!", "Login", true);
+                _this.userService.setLogin(result.json());
+            })
                 .catch(function (res) {
                 if (res.status == "0") {
                     window.location.replace("/404.html");
                 }
                 else {
+                    _this.messageService.addMessage("Cookie invalid.", "Login", true);
                     _this.LogOut();
                     return Observable_1.Observable.throw(res.json());
                 }
             });
         }
         else {
+            this.messageService.addMessage("No login cookie, redirecting.", "Login", true);
             this.redirectUrl = targetUrl;
             this.router.navigate(['/login']);
             return Observable_1.Observable.throw(function () { return "No user"; });

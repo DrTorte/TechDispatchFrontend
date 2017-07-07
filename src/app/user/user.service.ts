@@ -9,7 +9,10 @@ import 'rxjs/add/operator/map';
 import { User, UserUpdate, UserRoles } from './user';
 import { ProcessorService } from '../processor.service';
 import { MessageService } from '../message/message.service';
+
+import {AppointmentService} from '../appointment/appointment.service';
 import { FieldTechService } from '../field-tech/field-tech.service';
+import { TowerService } from '../tower/tower.service';
 
 import { Login } from './login';
 
@@ -26,14 +29,42 @@ export class UserService {
     public UserRoles: UserRoles[] = [];
 
     constructor(private http: Http,
-        private processorService: ProcessorService, private messageService: MessageService, private fieldTechService : FieldTechService) {
+        private processorService: ProcessorService, private messageService: MessageService, 
+        private fieldTechService : FieldTechService, private appointmentService: AppointmentService,
+        private towerService: TowerService) {
     }
 
     setLogin(user: User): void {
         this.myUser = user;
         //go get some metadata as well.
+        this.messageService.addMessage("Getting techs", "Techs",true);
         this.fieldTechService.getTechs()
-            .subscribe(x=>{this.fieldTechService.fieldTechs = x});
+            .subscribe(x=>{this.fieldTechService.fieldTechs = x;
+            this.messageService.addMessage(x.length + " techs received.", "Techs", true);});
+
+        this.messageService.addMessage("Getting appointment sub-reasons", "Appointments",true);
+        this.appointmentService.getAppointmentSubReasons()
+            .subscribe(x=>{this.appointmentService.appointmentsSubReasonsList = x;
+                this.messageService.addMessage(x.length + " sub-reasons received.", "Appointments", true);});
+
+        this.messageService.addMessage("Getting towers", "Towers",true);
+        this.towerService.getTowers()
+            .subscribe(x=>{this.towerService.towers =x;
+                this.towerService.towers
+                .sort((a?,b?) => {
+                    if (a.TowerName < b.TowerName){
+                        return -1;
+                    } else if (a.TowerName > b.TowerName){
+                        return 1;
+                    }
+                    return 0;
+                });
+                this.messageService.addMessage(x.length + " towers received.", "Towers", true);});
+
+        this.messageService.addMessage("Getting zones", "Towers",true);
+        this.towerService.getZones()
+            .subscribe(x=>{this.towerService.zones = x;
+            this.messageService.addMessage(x.length + " zones received.", "Towers", true);});
     }
 
     private extractData(res: Response) {

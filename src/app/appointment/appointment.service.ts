@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { ProcessorService } from '../processor.service';
 
 import { AppointmentDetail, AppointmentList } from './appointment';
+import { AppointmentSubReason} from './appointment-sub-reason';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -13,6 +14,7 @@ import 'rxjs/add/operator/map';
 export class AppointmentService{
     private url = '/api/Appointments'
     public appointmentsList : AppointmentList[] = [];
+    public appointmentsSubReasonsList: AppointmentSubReason[] = [];
 
     constructor (private http:Http, private processorService: ProcessorService){}
 
@@ -32,6 +34,12 @@ export class AppointmentService{
     public getAppointment(Id: number){
         return this.http.get(this.processorService.baseUrl + this.url +"/" + Id, {headers: this.processorService.getHeaders()})
         .map(res=>res.json())
+        .catch(this.processorService.handleError);
+    }
+
+    public getAppointmentSubReasons(onlyActive: boolean = false){
+        return this.http.get(this.processorService.baseUrl + this.url + "/Reasons", {headers:this.processorService.getHeaders()})
+        .map(res=>res.json() as AppointmentSubReason[])
         .catch(this.processorService.handleError);
     }
 }

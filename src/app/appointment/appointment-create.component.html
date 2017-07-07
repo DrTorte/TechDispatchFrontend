@@ -1,0 +1,22 @@
+<div class="row form-group col-md-12">
+    <label class="col-form-label col-md-2">Type:</label>
+    <div class="col col-md-4">
+        <select class="form-control" [(ngModel)]="appointment.AppointmentType" (ngModelChange)="updateAppointmentTypes()">
+            <option selected value="">--select--</option>
+            <option value=0>Install</option>
+            <option value=1>Repair</option>
+            <option value=2>Misc</option>
+        </select>
+    </div>
+    <label class="col-form-label col-md-2">Specify:</label>
+    <div class="col col-md-4">
+        <select class="form-control" [disabled]="!appointment.AppointmentType ? true : null">
+            <option>--select--</option>
+            <option *ngFor="let reason of appointmentReasons as AppointmentSubReason" value="{{reason.AppointmentSubReasonID}}">
+                {{reason.Name}}
+            </option>
+        </select>
+    </div>
+</div>
+<customerCreate [hidden]="(!appointment.AppointmentType || appointment.AppointmentType != 0) ? true : null" [newCustomer]="newCustomer"></customerCreate>
+<customerSelect [hidden]="(!appointment.AppointmentType || appointment.AppointmentType == 0) ? true : null" [selectedCustomer]="selectedCustomer"></customerSelect>

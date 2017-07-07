@@ -17,13 +17,17 @@ require("rxjs/add/operator/map");
 var user_1 = require("./user");
 var processor_service_1 = require("../processor.service");
 var message_service_1 = require("../message/message.service");
+var appointment_service_1 = require("../appointment/appointment.service");
 var field_tech_service_1 = require("../field-tech/field-tech.service");
+var tower_service_1 = require("../tower/tower.service");
 var UserService = (function () {
-    function UserService(http, processorService, messageService, fieldTechService) {
+    function UserService(http, processorService, messageService, fieldTechService, appointmentService, towerService) {
         this.http = http;
         this.processorService = processorService;
         this.messageService = messageService;
         this.fieldTechService = fieldTechService;
+        this.appointmentService = appointmentService;
+        this.towerService = towerService;
         this.accountUrl = '/api/Account/';
         this.usersUrl = '/api/User';
         this.loginUrl = '/api/token';
@@ -35,8 +39,40 @@ var UserService = (function () {
         var _this = this;
         this.myUser = user;
         //go get some metadata as well.
+        this.messageService.addMessage("Getting techs", "Techs", true);
         this.fieldTechService.getTechs()
-            .subscribe(function (x) { _this.fieldTechService.fieldTechs = x; });
+            .subscribe(function (x) {
+            _this.fieldTechService.fieldTechs = x;
+            _this.messageService.addMessage(x.length + " techs received.", "Techs", true);
+        });
+        this.messageService.addMessage("Getting appointment sub-reasons", "Appointments", true);
+        this.appointmentService.getAppointmentSubReasons()
+            .subscribe(function (x) {
+            _this.appointmentService.appointmentsSubReasonsList = x;
+            _this.messageService.addMessage(x.length + " sub-reasons received.", "Appointments", true);
+        });
+        this.messageService.addMessage("Getting towers", "Towers", true);
+        this.towerService.getTowers()
+            .subscribe(function (x) {
+            _this.towerService.towers = x;
+            _this.towerService.towers
+                .sort(function (a, b) {
+                if (a.TowerName < b.TowerName) {
+                    return -1;
+                }
+                else if (a.TowerName > b.TowerName) {
+                    return 1;
+                }
+                return 0;
+            });
+            _this.messageService.addMessage(x.length + " towers received.", "Towers", true);
+        });
+        this.messageService.addMessage("Getting zones", "Towers", true);
+        this.towerService.getZones()
+            .subscribe(function (x) {
+            _this.towerService.zones = x;
+            _this.messageService.addMessage(x.length + " zones received.", "Towers", true);
+        });
     };
     UserService.prototype.extractData = function (res) {
         var body = res.json();
@@ -120,7 +156,9 @@ var UserService = (function () {
 UserService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http,
-        processor_service_1.ProcessorService, message_service_1.MessageService, field_tech_service_1.FieldTechService])
+        processor_service_1.ProcessorService, message_service_1.MessageService,
+        field_tech_service_1.FieldTechService, appointment_service_1.AppointmentService,
+        tower_service_1.TowerService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

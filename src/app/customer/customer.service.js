@@ -10,30 +10,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/toPromise");
+var processor_service_1 = require("../processor.service");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
-var processor_service_1 = require("../processor.service");
-var message_service_1 = require("../message/message.service");
-var TowerService = (function () {
-    function TowerService(http, processorService, messageService) {
+var CustomerService = (function () {
+    function CustomerService(http, processorService) {
         this.http = http;
         this.processorService = processorService;
-        this.messageService = messageService;
-        this.towers = [];
-        this.url = '/api/Towers';
+        this.currentlySearching = false;
+        this.url = '/api/Customers';
     }
-    TowerService.prototype.getTowers = function () {
-        return this.http.get(this.processorService.baseUrl + this.url, { headers: this.processorService.getHeaders() })
-            .map(function (res) { return res.json(); })
+    CustomerService.prototype.getCustomers = function (search) {
+        var _this = this;
+        var targetUrl = this.processorService.baseUrl + this.url;
+        this.currentlySearching = true;
+        if (search) {
+            targetUrl += "?search=" + search;
+        }
+        return this.http.get(targetUrl, { headers: this.processorService.getHeaders() })
+            .map(function (res) {
+            _this.currentlySearching = false;
+            return res.json();
+        })
             .catch(this.processorService.handleError);
     };
-    return TowerService;
+    return CustomerService;
 }());
-TowerService = __decorate([
+CustomerService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http,
-        processor_service_1.ProcessorService, message_service_1.MessageService])
-], TowerService);
-exports.TowerService = TowerService;
-//# sourceMappingURL=tower-service.js.map
+    __metadata("design:paramtypes", [http_1.Http, processor_service_1.ProcessorService])
+], CustomerService);
+exports.CustomerService = CustomerService;
+//# sourceMappingURL=customer.service.js.map

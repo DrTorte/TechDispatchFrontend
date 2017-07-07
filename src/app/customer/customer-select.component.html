@@ -1,0 +1,18 @@
+<div class="row col-md-12">
+    <label class="col-form-label col-md-2">Search:</label>
+    <div class="col-md-4">
+        <input  class="form-control" [(ngModel)]="searchData" />
+    </div>
+    <label class="col-form-label col-md-2">Customer:</label>
+    <div class="col-md-4" >
+        <select class="form-control" [hidden]="!currentlySearching">
+            <option disabled>--loading--</option>
+        </select>
+        <select class="form-control" [(ngModel)]="selectedCustomer.CustomerID" [hidden]="currentlySearching">
+            <option disabled selected>--select--</option>
+            <option *ngFor="let c of customers | async" value="{{c?.CustomerID}}">
+                {{c?.Name}}
+            </option>
+        </select>
+    </div>
+</div>
