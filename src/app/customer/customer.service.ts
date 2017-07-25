@@ -16,7 +16,7 @@ export class CustomerService{
 
     constructor(private http: Http, private processorService:ProcessorService){}
 
-    public getCustomers(search?:string) {
+    public getCustomers(search?:string) : Observable<Customer[]> {
         let targetUrl = this.processorService.baseUrl + this.url;
         this.currentlySearching = true;
         if (search) {
@@ -25,6 +25,16 @@ export class CustomerService{
         return this.http.get(targetUrl, {headers: this.processorService.getHeaders()})
         .map(res=> {
             this.currentlySearching = false;
+            return res.json();
+        })
+        .catch(this.processorService.handleError);
+    }
+
+    //get a specific customer with full details.
+    public getCustomer(id:number) : Observable<Customer> {
+        let targetUrl = this.processorService.baseUrl + this.url + "/" + id.toString();
+        return this.http.get(targetUrl, {headers:this.processorService.getHeaders()})
+        .map(res=> {
             return res.json();
         })
         .catch(this.processorService.handleError);

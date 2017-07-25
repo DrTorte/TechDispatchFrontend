@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var customer_1 = require("./customer");
 var customer_service_1 = require("./customer.service");
 var Rx_1 = require("rxjs/Rx");
 var tower_service_1 = require("../tower/tower.service");
@@ -21,7 +20,7 @@ var CustomerSelectComponent = (function () {
         this.towerService = towerService;
         this.customerService = customerService;
         this.messageService = messageService;
-        this.selectedCustomer = new customer_1.Customer();
+        this.selectedCustomerId = new core_1.EventEmitter();
         this.search = new Subject_1.Subject();
     }
     Object.defineProperty(CustomerSelectComponent.prototype, "searchData", {
@@ -36,6 +35,9 @@ var CustomerSelectComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    CustomerSelectComponent.prototype.selectCustomer = function () {
+        this.selectedCustomerId.emit(this.customerId);
+    };
     Object.defineProperty(CustomerSelectComponent.prototype, "currentlySearching", {
         get: function () {
             return (this.customerService.currentlySearching);
@@ -57,11 +59,14 @@ var CustomerSelectComponent = (function () {
     };
     return CustomerSelectComponent;
 }());
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], CustomerSelectComponent.prototype, "selectedCustomerId", void 0);
 CustomerSelectComponent = __decorate([
     core_1.Component({
         selector: "customerSelect",
-        templateUrl: "./customer-select.component.html",
-        inputs: ['selectedCustomer']
+        templateUrl: "./customer-select.component.html"
     }),
     __metadata("design:paramtypes", [tower_service_1.TowerService, customer_service_1.CustomerService, message_service_1.MessageService])
 ], CustomerSelectComponent);

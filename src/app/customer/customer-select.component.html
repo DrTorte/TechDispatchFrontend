@@ -8,11 +8,13 @@
         <select class="form-control" [hidden]="!currentlySearching">
             <option disabled>--loading--</option>
         </select>
-        <select class="form-control" [(ngModel)]="selectedCustomer.CustomerID" [hidden]="currentlySearching">
+        <select class="form-control" [hidden]="currentlySearching" [(ngModel)]="customerId" (change)="selectCustomer()">
             <option disabled selected>--select--</option>
             <option *ngFor="let c of customers | async" value="{{c?.CustomerID}}">
                 {{c?.Name}}
             </option>
         </select>
     </div>
+
+    <button (click)="checkCustomer()">checkCustomer</button>
 </div>

@@ -35,6 +35,8 @@ var user_component_1 = require("./user/user.component");
 var users_component_1 = require("./user/users.component");
 var user_service_1 = require("./user/user.service");
 var not_found_component_1 = require("./not-found.component");
+var schedule_service_1 = require("./schedule/schedule.service");
+var schedule_openings_component_1 = require("./schedule/schedule-openings.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -45,10 +47,10 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, appointments_component_1.AppointmentsComponent, appointment_component_1.AppointmentComponent, dashboard_component_1.DashboardComponent, nav_component_1.NavComponent, not_found_component_1.PageNotFoundComponent,
             account_component_1.AccountComponent, login_component_1.LoginComponent, user_component_1.UserComponent, users_component_1.UsersComponent, appointment_create_component_1.AppointmentCreateComponent, customer_create_component_1.CustomerCreateComponent, customer_select_component_1.CustomerSelectComponent,
-            message_component_1.MessageComponent, loading_component_1.LoadingComponent, message_debug_component_1.MessageDebugComponent],
+            message_component_1.MessageComponent, loading_component_1.LoadingComponent, message_debug_component_1.MessageDebugComponent, schedule_openings_component_1.ScheduleOpeningsComponent],
         bootstrap: [app_component_1.AppComponent],
         providers: [processor_service_1.ProcessorService, appointment_service_1.AppointmentService, message_service_1.MessageService, user_service_1.UserService, auth_service_1.AuthService, auth_guard_service_1.AuthGuardService, field_tech_service_1.FieldTechService, tower_service_1.TowerService,
-            customer_service_1.CustomerService]
+            customer_service_1.CustomerService, schedule_service_1.ScheduleService]
     })
 ], AppModule);
 exports.AppModule = AppModule;

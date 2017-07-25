@@ -86,7 +86,7 @@ export class UserService {
     }
 
     updateUser(user: UserUpdate): Observable<User> {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/update", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/update", JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
@@ -98,19 +98,19 @@ export class UserService {
     }
 
     createUser(user:User): Observable<User> {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl, this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl, JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     disableUser(user: User): Observable<User> {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }
 
     enableUser(user: User): Observable<User> {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(res => res.json())
             .catch(this.handleError);
     }

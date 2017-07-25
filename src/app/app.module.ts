@@ -42,14 +42,16 @@ import { UserService } from './user/user.service';
 
 
 import { PageNotFoundComponent} from './not-found.component';
+import { ScheduleService } from "./schedule/schedule.service";
+import { ScheduleOpeningsComponent } from "./schedule/schedule-openings.component";
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, AppRoutingModule, FormsModule ],
   declarations: [ AppComponent, AppointmentsComponent,AppointmentComponent, DashboardComponent, NavComponent, PageNotFoundComponent,
   AccountComponent,LoginComponent,UserComponent,UsersComponent, AppointmentCreateComponent, CustomerCreateComponent, CustomerSelectComponent,
-  MessageComponent, LoadingComponent, MessageDebugComponent ],
+  MessageComponent, LoadingComponent, MessageDebugComponent, ScheduleOpeningsComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ProcessorService, AppointmentService, MessageService, UserService, AuthService, AuthGuardService, FieldTechService, TowerService
-  , CustomerService]
+  , CustomerService, ScheduleService]
 })
 export class AppModule { }

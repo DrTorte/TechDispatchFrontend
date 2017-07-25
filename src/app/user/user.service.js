@@ -90,7 +90,7 @@ var UserService = (function () {
             .catch(this.handleError);
     };
     UserService.prototype.updateUser = function (user) {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/update", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/update", JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
@@ -100,17 +100,17 @@ var UserService = (function () {
             .catch(this.handleError);
     };
     UserService.prototype.createUser = function (user) {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl, this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl, JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.disableUser = function (user) {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.enableUser = function (user) {
-        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", this.processorService.getParams(user), { headers: this.processorService.getHeaders() })
+        return this.http.post(this.processorService.baseUrl + this.usersUrl + "/disable", JSON.stringify(user), { headers: this.processorService.getHeaders() })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

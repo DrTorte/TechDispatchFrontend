@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Customer } from './customer';
 import { CustomerService } from './customer.service';
 import { Observable } from 'rxjs/Rx';
@@ -11,12 +11,12 @@ import { Subject } from "rxjs/Subject";
 
 @Component({
     selector: "customerSelect",
-    templateUrl:"./customer-select.component.html",
-    inputs:['selectedCustomer']
+    templateUrl:"./customer-select.component.html"
 })
 export class CustomerSelectComponent{
-
-    private selectedCustomer : Customer = new Customer();
+    selectedCustomer : Customer;
+    @Output() selectedCustomerId = new EventEmitter<number>();
+    private customerId : number;
     private search = new Subject<string>();
 
     private _searchData : string;
@@ -29,6 +29,10 @@ export class CustomerSelectComponent{
 
     constructor(private towerService : TowerService, private customerService: CustomerService, private messageService: MessageService){
 
+    }
+
+    selectCustomer(){
+        this.selectedCustomerId.emit(this.customerId);
     }
 
     get currentlySearching():boolean{

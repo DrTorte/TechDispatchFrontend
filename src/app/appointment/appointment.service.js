@@ -43,6 +43,11 @@ var AppointmentService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.processorService.handleError);
     };
+    AppointmentService.prototype.createAppointment = function (app) {
+        return this.http.post(this.processorService.baseUrl + this.url + "/Create", JSON.stringify(app), { headers: this.processorService.getHeaders() })
+            .map(function (res) { return res.json(); })
+            .catch(this.processorService.handleError);
+    };
     return AppointmentService;
 }());
 AppointmentService = __decorate([

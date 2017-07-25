@@ -14,7 +14,7 @@ export class ProcessorService {
 
     }
 
-    public getParams(data: Object): Object {
+    public getParams(data: Object): string {
         const params = Object.keys(data).map((key) => {
             if (data[key] == null) {
                 return null;
@@ -36,7 +36,7 @@ export class ProcessorService {
     }
 
     public getHeaders(): Headers {
-        let headers: Headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let headers: Headers = new Headers({ 'Content-Type': 'application/json' });
         // split the cookies.
         let cookies = document.cookie.split(';');
 

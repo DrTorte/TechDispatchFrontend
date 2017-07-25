@@ -42,7 +42,7 @@ var ProcessorService = (function () {
         return params;
     };
     ProcessorService.prototype.getHeaders = function () {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         // split the cookies.
         var cookies = document.cookie.split(';');
         // get authorization header.

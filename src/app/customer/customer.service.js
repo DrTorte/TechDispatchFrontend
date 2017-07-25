@@ -34,6 +34,15 @@ var CustomerService = (function () {
         })
             .catch(this.processorService.handleError);
     };
+    //get a specific customer with full details.
+    CustomerService.prototype.getCustomer = function (id) {
+        var targetUrl = this.processorService.baseUrl + this.url + "/" + id.toString();
+        return this.http.get(targetUrl, { headers: this.processorService.getHeaders() })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.processorService.handleError);
+    };
     return CustomerService;
 }());
 CustomerService = __decorate([

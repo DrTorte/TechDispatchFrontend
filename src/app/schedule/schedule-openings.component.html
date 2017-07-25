@@ -1,0 +1,18 @@
+<button (click)="changeDate(-7)">-7 Days</button>
+<button (click)="changeDate(7)">+7 Days</button>
+<table>
+    <tr>
+        <td></td>
+        <th *ngFor="let d of dates">
+            {{formattedDate(d)}}
+        </th>
+    </tr>
+    <tr *ngFor="let t of timeSlots">
+        <th>{{t.Name}}</th>
+        <ng-container *ngFor="let o of openings">
+            <td *ngIf="o.TimeSlotId == t.TimeSlotID">
+                {{o.AvailableAmount}}
+            </td>
+        </ng-container>
+    </tr>
+</table>

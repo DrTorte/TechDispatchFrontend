@@ -17,6 +17,18 @@
             </option>
         </select>
     </div>
+    <div class="col col-md-4">
+        <ng-container *ngIf="selectedDate">
+            Selected date: {{selectedDate.getMonth() +1}}-{{selectedDate.getDate()}}, {{selectedSlot}}
+        </ng-container>
+    </div>
+    <div class="col col-md-4">
+        <button type="button" class="btn btn-success" (click)="createAppointment()">Submit</button>
+    </div>
 </div>
-<customerCreate [hidden]="(!appointment.AppointmentType || appointment.AppointmentType != 0) ? true : null" [newCustomer]="newCustomer"></customerCreate>
-<customerSelect [hidden]="(!appointment.AppointmentType || appointment.AppointmentType == 0) ? true : null" [selectedCustomer]="selectedCustomer"></customerSelect>
+<button (click)="checkCustomer()">CheckCx</button>
+<customerCreate [hidden]="(!appointment.AppointmentType || appointment.AppointmentType != 0) ? true : null" 
+[(newCustomer)]="newCustomer"></customerCreate>
+<customerSelect [hidden]="(!appointment.AppointmentType || appointment.AppointmentType == 0) ? true : null" (selectedCustomerId)="selectedCustomerId($event)"></customerSelect>
+<scheduleOpenings [(startDate)]="startDate" [(endDate)]="endDate" [(selectedDate)]="selectedDate" 
+[(selectedSlot)]="selectedSlot"></scheduleOpenings>

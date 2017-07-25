@@ -1,4 +1,5 @@
 import { AppointmentComment } from './appointment-comment';
+import { Customer, CustomerCreate } from '../customer/customer';
 
 export class AppointmentList{
     AppointmentID: number;
@@ -33,4 +34,9 @@ export class AppointmentCreate extends AppointmentList {
     Comments: AppointmentComment[];
 
     IPID?: number;
+
+    Customer: Customer;
+    CustomerCreate: CustomerCreate;
+    //and for good measure, add a customercreate and customer field here.
+
 }
